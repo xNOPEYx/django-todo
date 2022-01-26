@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="colums is-multiline">
+	<div class=column is-12>
+		<h1 class="title">Todos</h1>
+	</div>
+
+	<hr><br>
+	
+	<div class=column is-12>
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-primary">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<br><hr><br>
+
+	<div class=column is-12>
+		<h4 class="title">Incompleted Tasks</h1>
+	</div>
+
+	<div class="column is-12">
+		{% for todo in todos %}
+			<p>{{ todo.title }} (Is done: {{ todo.is_done }}) <a href="{% url 'todo' todo.id %}">View details</a></p>
+
+		{% empty %}
+			<p>You don't have any todos yet...</p>
+		{% endfor %}
+	</div>
+
+	<br><hr><br>
+
+	<div class=column is-12>
+		<h4 class="title">Completed Tasks</h1>
+	</div>
+
+	<div class="column is-12">
+		<p>You don't have any completed todos yet...</p>
+		{% for todo in todos %}
+			<!-- <p>{{ todo.title }} <a href="{% url 'todo' todo.id %}">View details</a></p> -->
+		{% empty %}
+			<p>You don't have any completed todos yet...</p>
+		{% endfor %}
+	</div>
+
+</div>
+
+{% endblock %}
